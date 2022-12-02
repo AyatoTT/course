@@ -98,14 +98,14 @@ while v != -1:          # цикл, пока не просмотрим все в
 
 print()
 for i in range(N):
-    print(" ", i, end=" ")
+    print("%3d" % i, end=" ")
 
 print()
 for i in range(len(T)):
     if (T[i]== math.inf) or (T[i]==0):
-        print("","np",end=" ")
+        print("","np",end="")
     else:
-        print("",T[i],end=" ")
+        print("%3d" % T[i],end=" ")
 
 fout = open('Dxtra.txt', 'w')  # 'w' - это режим "запись" ("write")
 for i in range(len(gg)):
@@ -113,11 +113,11 @@ for i in range(len(gg)):
 print(file=fout)
 print("Data on shortest paths from a given point",file=fout)
 for i in range(N):
-    print("", i, end="  " , file=fout)
+    print("%3d" %  i, end=" " , file=fout)
 print(file=fout)
 for i in range(len(T)):
     if (T[i]== math.inf) or (T[i]==0):
         print("","np",end=" ",file=fout)
     else:
-        print("",T[i],end=" ",file=fout)
+        print("%3d" % T[i],end=" ",file=fout)
 fout.close()
