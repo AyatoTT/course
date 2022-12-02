@@ -48,8 +48,8 @@ def printm(mat,n):
     return
 """""
 def printm(mtx, n):
-    print('    ', end='')
-    [print("%2d" % i, end=' ') for i in range(0, len(mtx) )]
+    print('    ', end=' ')
+    [print("%2d" % i, end=' ') for i in range(0, len(mtx))]
     print()
     print('-' * (len(mtx[0]) * 3 + 4))
 
