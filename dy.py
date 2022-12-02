@@ -26,7 +26,7 @@ def createMatrix(value):
             else:
                 gr[i][j] = int((randint(0, 1)))
                 if (gr[i][j] == 1):
-                    gr[i][j] = int((randint(0, 100)))
+                    gr[i][j] = int((randint(0, 99)))
                 gr[j][i] = gr[i][j]
             j += 1
         i += 1
@@ -72,13 +72,22 @@ printm(gg,n)
 
 N=len(gg)
 T = [math.inf]*N
-while True:
-    try:
-        v=int(input("Введите стартовую вершину: "))         # стартовая вершина (нумерация с нуля)
-    except:
-        print("Введите число")
-    else:
-        break
+def start():
+    while True:
+        try:
+            v=int(input("Введите стартовую вершину: "))         # стартовая вершина (нумерация с нуля)
+        except:
+            print("Введите число")
+        else:
+            break
+    return v
+
+v=start()
+
+while v>n:
+    print("Введите существующую вершину: ")
+    v=start()
+
 S = {v}         # просмотренные вершины
 T[v] = 0        # нулевой вес для стартовой вершины
 M = [0]*N   # оптимальные связи между вершинами
@@ -103,7 +112,7 @@ for i in range(N):
 print()
 for i in range(len(T)):
     if (T[i]== math.inf) or (T[i]==0):
-        print("","np",end="")
+        print("","np",end=" ")
     else:
         print("%3d" % T[i],end=" ")
 
