@@ -32,8 +32,18 @@ def createMatrix(value):
         i += 1
     return gr
 
-"""""
+def start():
+    while True:
+        try:
+            print()
+            v=int(input("Введите стартовую вершину: "))  # стартовая вершина (нумерация с нуля)
+        except:
+            print("Введите число")
+        else:
+            break
+    return v
 
+"""""
 def printm(mat,n):
     for i in range(len(mat)):
         print('',i,end=" ")
@@ -110,41 +120,28 @@ while True:
 
 gg=createMatrix(n)
 printm(gg,n)
-
 N=len(gg)
 T = [math.inf]*N
-def start():
-    while True:
-        try:
-            print()
-            v=int(input("Введите стартовую вершину: "))         # стартовая вершина (нумерация с нуля)
-        except:
-            print("Введите число")
-        else:
-            break
-    return v
-
 v=start()
 
 while v>n or v==n :
     print("Введите существующую вершину!!! ")
     v=start()
 
-S = {v}         # просмотренные вершины
-T[v] = 0        # нулевой вес для стартовой вершины
-M = [0]*N   # оптимальные связи между вершинами
+S = {v}    # просмотренные вершины
+T[v] = 0   # нулевой вес для стартовой вершины
+M = [0]*N  # оптимальные связи между вершинами
 end = n
 P = [end]
 
-while v != -1:          # цикл, пока не просмотрим все вершины
-    for j in getlink(v, gg):   # перебираем все связанные вершины с вершиной v
-        if j not in S:           # если вершина еще не просмотрена
+while v != -1:  # цикл, пока не просмотрим все вершины
+    for j in getlink(v, gg): # перебираем все связанные вершины с вершиной v
+        if j not in S:      # если вершина еще не просмотрена
             w = T[v] + gg[v][j]
             if w < T[j]:
                 T[j] = w
-
     v = arg_min(T, S)            # выбираем следующий узел с наименьшим весом
-    if v >= 0:                    # выбрана очередная вершина
+    if v >= 0:                   # выбрана очередная вершина
         S.add(v)                 # добавляем новую вершину в рассмотрение
 
 printresult(N,T)
