@@ -54,8 +54,6 @@ def printm(mat,n):
     #print()
     #for mat in mat:
         #print(*mat)
-
-    return
 """""
 def printm(mtx, n):
     print()
