@@ -1,10 +1,12 @@
 from random import randint
 import math
 
-def getlink(v,gg):
+
+def getlink(v, gg):
     for i, weight in enumerate(gg[v]):
         if weight > 0:
             yield i
+
 
 def arg_min(T, S):
     amin = -1
@@ -15,22 +17,24 @@ def arg_min(T, S):
             amin = i
     return amin
 
-def createMatrix(value):
-    gr = [[0] * (value) for _ in range(value)]
+
+def creatematrix(value):
+    matrx = [[0] * (value) for _ in range(value)]
     i = 0
-    while (i < len(gr)):
+    while (i < len(matrx)):
         j = i
-        while (j < len(gr[i])):
+        while (j < len(matrx[i])):
             if (i == j):
-                gr[i][j] = 0
+                matrx[i][j] = 0
             else:
-                gr[i][j] = int((randint(0, 1)))
-                if (gr[i][j] == 1):
-                    gr[i][j] = int((randint(0, 99)))
-                gr[j][i] = gr[i][j]
+                matrx[i][j] = int((randint(0, 1)))
+                if (matrx[i][j] == 1):
+                    matrx[i][j] = int((randint(0, 99)))
+                matrx[j][i] = matrx[i][j]
             j += 1
         i += 1
-    return gr
+    return matrx
+
 
 def start():
     while True:
@@ -68,7 +72,8 @@ def printm(mtx, n):
             print("%2d" % col, end=' ')
         print()
 
-def print2file(gg,T):
+
+def print2file(gg, T):
     fout = open('Dxtra.txt', 'w')  # 'w' - это режим "запись" ("write")
     #for i in range(len(gg)):
         #print(gg[i],file=fout)
@@ -95,7 +100,8 @@ def print2file(gg,T):
     fout.close()
     return
 
-def print2secfile(gg,T):
+
+def print2secfile(gg, T):
     fout = open('matrix.txt', 'w')  # 'w' - это режим "запись" ("write")
     for i, row in enumerate(gg):
         for col in row:
@@ -104,8 +110,7 @@ def print2secfile(gg,T):
     return
 
 
-
-def printresult(N,T):
+def printresult(N, T):
     print()
     for i in range(N):
      print("%3d" % i, end=" ")
@@ -118,6 +123,7 @@ def printresult(N,T):
             print("%3d" % T[i],end=" ")
     return
 
+
 while True:
     try:
         wi = int(input("1)Рандомные связи и значения\n2)Ввод из файла\nВаш выбор: "))
@@ -125,6 +131,7 @@ while True:
         print("Введите число")
     else:
         break
+
 
 while True:
     if wi==1 :
@@ -135,7 +142,7 @@ while True:
                 print("Введите число")
             else:
                 break
-        gg = createMatrix(n)
+        gg = creatematrix(n)
         break
     elif wi==2 :
         gg = []
@@ -157,11 +164,13 @@ while True:
                 break
     else:
         break
+
 #gg=createMatrix(n)
-printm(gg,n)
+printm(gg, n)
 N=len(gg)
 T = [math.inf]*N
 v=start()
+
 
 while v>n or v==n :
     print("Введите существующую вершину!!! ")
@@ -169,6 +178,7 @@ while v>n or v==n :
 
 S = {v}    # просмотренные вершины
 T[v] = 0   # нулевой вес для стартовой вершины
+
 
 while v != -1:  # цикл, пока не просмотрим все вершины
     for j in getlink(v, gg): # перебираем все связанные вершины с вершиной v
@@ -180,9 +190,8 @@ while v != -1:  # цикл, пока не просмотрим все верши
     if v >= 0:                   # выбрана очередная вершина
         S.add(v)                 # добавляем новую вершину в рассмотрение
 
-printresult(N,T)
+
+printresult(N, T)
 if wi == 1:
-    print2file(gg,T)
-
-
-print2secfile(gg,T)
+    print2file(gg, T)
+print2secfile(gg, T)
