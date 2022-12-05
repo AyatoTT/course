@@ -147,8 +147,14 @@ while True:
                 gg.append([float(x) for x in line.split()])
         break
     elif wi!=1 or wi!=2:
-        print()
-        wi = int(input("Введите число 1 или 2 \n1)Рандомные связи и значения\n2)Ввод из файла\nВаш выбор: "))
+        while True:
+            try:
+                print()
+                wi = int(input("1)Рандомные связи и значения\n2)Ввод из файла\nВаш выбор: "))
+            except:
+                print("Введите число 1 или 2 ")
+            else:
+                break
     else:
         break
 #gg=createMatrix(n)
