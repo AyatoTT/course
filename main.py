@@ -137,7 +137,7 @@ while True:
     if wi==1 :
         while True:
             try:
-                n = int(input("Введите размер матрицы:  "))
+                n = int(input("Введите количество вершин:  "))
             except:
                 print("Введите число")
             else:
