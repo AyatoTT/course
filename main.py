@@ -73,7 +73,7 @@ def printm(mtx, n):
         print()
 
 
-def print2file(gg, T):
+def print2file(gg, T, N):
     fout = open('Dxtra.txt', 'w')  # 'w' - это режим "запись" ("write")
     #for i in range(len(gg)):
         #print(gg[i],file=fout)
@@ -123,75 +123,77 @@ def printresult(N, T):
             print("%3d" % T[i],end=" ")
     return
 
-
-while True:
-    try:
-        wi = int(input("1)Рандомные связи и значения\n2)Ввод из файла\nВаш выбор: "))
-    except:
-        print("Введите число")
-    else:
-        break
-
-
-while True:
-    if wi==1 :
-        while True:
-            try:
-                n = int(input("Введите количество вершин:  "))
-            except:
-                print("Введите число")
-            else:
-                break
-        gg = creatematrix(n)
-        break
-    elif wi==2 :
-        gg = []
-        file = open("matrix.txt", "r")
-        with open('matrix.txt') as f:
-        #data = file.read()
-            for line in f:
-                n = len(line)
-                gg.append([float(x) for x in line.split()])
-        break
-    elif wi!=1 or wi!=2:
-        while True:
-            try:
-                print()
-                wi = int(input("1)Рандомные связи и значения\n2)Ввод из файла\nВаш выбор: "))
-            except:
-                print("Введите число 1 или 2 ")
-            else:
-                break
-    else:
-        break
-
-#gg=createMatrix(n)
-printm(gg, n)
-N=len(gg)
-T = [math.inf]*N
-v=start()
+def main():
+    while True:
+        try:
+            wi = int(input("1)Рандомные связи и значения\n2)Ввод из файла\nВаш выбор: "))
+        except:
+            print("Введите число")
+        else:
+            break
 
 
-while v>n or v==n :
-    print("Введите существующую вершину!!! ")
+    while True:
+        if wi==1 :
+            while True:
+                try:
+                    n = int(input("Введите количество вершин:  "))
+                except:
+                    print("Введите число")
+                else:
+                    break
+            gg = creatematrix(n)
+            break
+        elif wi==2 :
+            gg = []
+            file = open("matrix.txt", "r")
+            with open('matrix.txt') as f:
+            #data = file.read()
+                for line in f:
+                    n = len(line)
+                    gg.append([float(x) for x in line.split()])
+            break
+        elif wi!=1 or wi!=2:
+            while True:
+                try:
+                    print()
+                    wi = int(input("1)Рандомные связи и значения\n2)Ввод из файла\nВаш выбор: "))
+                except:
+                    print("Введите число 1 или 2 ")
+                else:
+                    break
+        else:
+            break
+
+    #gg=createMatrix(n)
+    printm(gg, n)
+    N=len(gg)
+    T = [math.inf]*N
     v=start()
 
-S = {v}    # просмотренные вершины
-T[v] = 0   # нулевой вес для стартовой вершины
+
+    while v>n or v==n :
+        print("Введите существующую вершину!!! ")
+        v=start()
+
+    S = {v}    # просмотренные вершины
+    T[v] = 0   # нулевой вес для стартовой вершины
 
 
-while v != -1:  # цикл, пока не просмотрим все вершины
-    for j in getlink(v, gg): # перебираем все связанные вершины с вершиной v
-        if j not in S:      # если вершина еще не просмотрена
-            w = T[v] + gg[v][j]
-            if w < T[j]:
-                T[j] = w
-    v = arg_min(T, S)            # выбираем следующий узел с наименьшим весом
-    if v >= 0:                   # выбрана очередная вершина
-        S.add(v)                 # добавляем новую вершину в рассмотрение
+    while v != -1:  # цикл, пока не просмотрим все вершины
+        for j in getlink(v, gg): # перебираем все связанные вершины с вершиной v
+            if j not in S:      # если вершина еще не просмотрена
+                w = T[v] + gg[v][j]
+                if w < T[j]:
+                    T[j] = w
+        v = arg_min(T, S)            # выбираем следующий узел с наименьшим весом
+        if v >= 0:                   # выбрана очередная вершина
+            S.add(v)                 # добавляем новую вершину в рассмотрение
 
 
-printresult(N, T)
-if wi == 1:
-    print2file(gg, T)
-print2secfile(gg, T)
+    printresult(N, T)
+    if wi == 1:
+        print2file(gg, T, N)
+    #print2secfile(gg, T)
+
+main()
