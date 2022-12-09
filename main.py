@@ -40,12 +40,13 @@ def start():
     while True:
         try:
             print()
-            v=int(input("Введите стартовую вершину: "))  # стартовая вершина (нумерация с нуля)
+            v = int(input("Введите стартовую вершину: "))  # стартовая вершина (нумерация с нуля)
         except:
             print("Введите число")
         else:
             break
     return v
+
 
 """""
 def printm(mat,n):
@@ -59,6 +60,8 @@ def printm(mat,n):
     #for mat in mat:
         #print(*mat)
 """""
+
+
 def printm(mtx, n):
     print()
     print('    ', end=' ')
@@ -75,28 +78,28 @@ def printm(mtx, n):
 
 def print2file(gg, T, N):
     fout = open('Dxtra.txt', 'w')  # 'w' - это режим "запись" ("write")
-    #for i in range(len(gg)):
-        #print(gg[i],file=fout)
+    # for i in range(len(gg)):
+    # print(gg[i],file=fout)
     print(file=fout)
-    print('    ', end=' ',file=fout)
-    [print("%2d" % i, end=' ',file=fout) for i in range(0, len(gg))]
+    print('    ', end=' ', file=fout)
+    [print("%2d" % i, end=' ', file=fout) for i in range(0, len(gg))]
     print(file=fout)
-    print('-' * (len(gg[0]) * 3 + 4),file=fout)
+    print('-' * (len(gg[0]) * 3 + 4), file=fout)
     for i, row in enumerate(gg):
-        print("%2d |" % (i), end=' ',file=fout  )
+        print("%2d |" % (i), end=' ', file=fout)
         for col in row:
-            print("%2d" % col, end=' ',file=fout)
+            print("%2d" % col, end=' ', file=fout)
         print(file=fout)
     print(file=fout)
-    print("Data on shortest paths from a given point",file=fout)
+    print("Data on shortest paths from a given point", file=fout)
     for i in range(N):
-     print("%3d" %  i, end=" " , file=fout)
+        print("%3d" % i, end=" ", file=fout)
     print(file=fout)
     for i in range(len(T)):
-        if (T[i]== math.inf) or (T[i]==0):
-            print("","np",end=" ",file=fout)
+        if (T[i] == math.inf) or (T[i] == 0):
+            print("", "np", end=" ", file=fout)
         else:
-            print("%3d" % T[i],end=" ",file=fout)
+            print("%3d" % T[i], end=" ", file=fout)
     fout.close()
     return
 
@@ -105,7 +108,7 @@ def print2secfile(gg, T):
     fout = open('matrix.txt', 'w')  # 'w' - это режим "запись" ("write")
     for i, row in enumerate(gg):
         for col in row:
-            print("%2d" % col, end=' ',file=fout)
+            print("%2d" % col, end=' ', file=fout)
         print(file=fout)
     return
 
@@ -113,15 +116,16 @@ def print2secfile(gg, T):
 def printresult(N, T):
     print()
     for i in range(N):
-     print("%3d" % i, end=" ")
+        print("%3d" % i, end=" ")
 
     print()
     for i in range(len(T)):
-        if (T[i]== math.inf) or (T[i]==0):
-            print("","np",end=" ")
+        if (T[i] == math.inf) or (T[i] == 0):
+            print("", "np", end=" ")
         else:
-            print("%3d" % T[i],end=" ")
+            print("%3d" % T[i], end=" ")
     return
+
 
 def main():
     while True:
@@ -132,9 +136,8 @@ def main():
         else:
             break
 
-
     while True:
-        if wi==1 :
+        if wi == 1:
             while True:
                 try:
                     n = int(input("Введите количество вершин:  "))
@@ -144,16 +147,16 @@ def main():
                     break
             gg = creatematrix(n)
             break
-        elif wi==2 :
+        elif wi == 2:
             gg = []
             file = open("matrix.txt", "r")
             with open('matrix.txt') as f:
-            #data = file.read()
+                # data = file.read()
                 for line in f:
                     n = len(line)
                     gg.append([float(x) for x in line.split()])
             break
-        elif wi!=1 or wi!=2:
+        elif wi != 1 or wi != 2:
             while True:
                 try:
                     print()
@@ -165,35 +168,33 @@ def main():
         else:
             break
 
-    #gg=createMatrix(n)
+    # gg=createMatrix(n)
     printm(gg, n)
-    N=len(gg)
-    T = [math.inf]*N
-    v=start()
+    N = len(gg)
+    T = [math.inf] * N
+    v = start()
 
-
-    while v>n or v==n :
+    while v > n or v == n:
         print("Введите существующую вершину!!! ")
-        v=start()
+        v = start()
 
-    S = {v}    # просмотренные вершины
-    T[v] = 0   # нулевой вес для стартовой вершины
-
+    S = {v}  # просмотренные вершины
+    T[v] = 0  # нулевой вес для стартовой вершины
 
     while v != -1:  # цикл, пока не просмотрим все вершины
-        for j in getlink(v, gg): # перебираем все связанные вершины с вершиной v
-            if j not in S:      # если вершина еще не просмотрена
+        for j in getlink(v, gg):  # перебираем все связанные вершины с вершиной v
+            if j not in S:  # если вершина еще не просмотрена
                 w = T[v] + gg[v][j]
                 if w < T[j]:
                     T[j] = w
-        v = arg_min(T, S)            # выбираем следующий узел с наименьшим весом
-        if v >= 0:                   # выбрана очередная вершина
-            S.add(v)                 # добавляем новую вершину в рассмотрение
-
+        v = arg_min(T, S)  # выбираем следующий узел с наименьшим весом
+        if v >= 0:  # выбрана очередная вершина
+            S.add(v)  # добавляем новую вершину в рассмотрение
 
     printresult(N, T)
     if wi == 1:
         print2file(gg, T, N)
-    #print2secfile(gg, T)
+    # print2secfile(gg, T)
+
 
 main()
